@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <style>
+        * {
+            margin: 5px;
+        }
+
+        label {
+            color: rgb(240, 39, 146);
+        }
+
+        button {
+            height: 60px;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <script>
+
+        function main() {
+            const fileSelector = document.getElementById('file_uploader');
+            fileSelector.addEventListener('change', (event) => {
+                const fileList = event.target.files;
+                console.log(fileList);
+
+                let formData = new FormData();
+                formData.append("photo", fileList[0])
+
+                console.log(fileList[0])
+                console.log(formData)
+
+                var foo;
+
+                fetch('https://ptsv2.com/t/k18ru-1608647340/post', {
+                    method: "POST", body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => foo = data)
+                    //.then(() => console.log("jippi " + foo))
+                    .then(() => document.getElementById("body").innerHTML += foo)
+            });
+        }
+
+    </script>
+</head>
+
+<body onload="main()" id="body">
+    <div class="main">
+        <h1>Welcome</h1>
+
+        <label>
+            Drop your file here
+            <input type="file" id="file_uploader">
+        </label>
+
+        <label>
+            sdlfnsdklnf
+            <input type="checkbox">
+        </label>
+
+        <label>
+            my checkbox
+            <input type="checkbox">
+        </label>
+
+        <button>
+            GO
+        </button>
+
+        <button>
+            Dowload
+        </button>
+    </div>
+</body>
